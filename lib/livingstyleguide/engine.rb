@@ -7,7 +7,9 @@ module LivingStyleGuide
       default_language: 'example',
       title: 'Living Style Guide',
       header: '<h1 class="livingstyleguide--page-title">Living Style Guide</h1>',
-      footer: '<div class="livingstyleguide--footer"><a class="livingstyleguide--logo" href="http://livingstyleguide.org">Made with the LivingStyleGuide gem.</a></div>'
+      footer: '<div class="livingstyleguide--footer"><a class="livingstyleguide--logo" href="http://livingstyleguide.org">Made with the LivingStyleGuide gem.</a></div>',
+      javascript_before: [],
+      javascript_after: []
     }
 
     def self.default_options
@@ -72,7 +74,7 @@ module LivingStyleGuide
     end
 
     def head
-      (@engine.options[:javascript_before] || []).map do |src|
+      @engine.options[:javascript_before].map do |src|
         %Q(<script src="#{src}"></script>)
       end.join("\n")
     end
@@ -84,7 +86,7 @@ module LivingStyleGuide
 
     def footer
       contents = [@engine.options[:footer]]
-      contents << (@engine.options[:javascript_after] || []).map do |src|
+      contents << @engine.options[:javascript_after].map do |src|
         %Q(<script src="#{src}"></script>)
       end
       contents.join("\n")
